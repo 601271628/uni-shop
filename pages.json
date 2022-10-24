@@ -2,9 +2,7 @@
 	"pages": [
         {
             "path" : "pages/home/home",
-            "style" : {
-                 "navigationBarTitleText": "uni-ui基础项目"
-            }
+            "style" : {}
         }
         ,{
             "path" : "pages/cate/cate",
@@ -19,13 +17,26 @@
             "style" : {}
         }
     ],
+   "subPackages":[     
+       {       
+            "root":"subpkg",       
+            "pages": [
+                {
+                    "path" : "good_detail/good_detail",
+                    "style" :{}                                                                               
+                }
+            ]
+       } 
+    ],
     // 小程序内部的window
 	"globalStyle": {
         // 导航条
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uniShop",
-		"navigationBarBackgroundColor": "#007AFF",
+		"navigationBarBackgroundColor": "#ff0000",
         
+        // 
+        "enablePullDownRefresh": true,
         // 下拉刷新时的背景
 		"backgroundColor": "#FF0000"
 	},
