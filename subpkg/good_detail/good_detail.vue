@@ -12,7 +12,7 @@
             };
         },
         onLoad(options){
-            console.log(options);
+            console.log("options:",options);
             this.good_id = options.good_id
         }
     }

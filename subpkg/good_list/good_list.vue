@@ -15,7 +15,6 @@
             
         },
         onLoad(options) {
-            console.log(options);
             this.query = options.query || options.cid
         }
     }
