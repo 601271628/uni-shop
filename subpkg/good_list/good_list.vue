@@ -1,6 +1,6 @@
 <template>
     <view>
-        {{good_id}}
+        {{query}}
     </view>
 </template>
 
@@ -8,12 +8,15 @@
     export default {
         data() {
             return {
-                good_id:null
+                query:null
             };
         },
-        onLoad(options){
+        methods:{
+            
+        },
+        onLoad(options) {
             console.log(options);
-            this.good_id = options.good_id
+            this.query = options.query
         }
     }
 </script>
