@@ -1,5 +1,10 @@
 <template>
 	<view>
+        <view class="searchBox">
+            <!-- 使用自定义组件 -->
+            <my-search @click.native="gotoSearch"></my-search>
+        </view>
+        
         <!-- 轮播图 -->
         <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="500">
                 <swiper-item v-for="item in swipperList" :key="item.goods_id">
@@ -86,7 +91,6 @@
                     })
                 }
             },
-            
             // 图层
             getFloorList(){
                 uni.$http.get('/api/public/v1/home/floordata').then(res=>{
@@ -102,38 +106,49 @@
                     this.floorList = res.data.message
                 })
             },
+            // search页面
+            gotoSearch(){
+               uni.navigateTo({
+                  url: '/subpkg/search/search'
+                })
+            }
         }
 	}
 </script>
 
 <style lang="scss">
- swiper-item image{
-     width: 100%;
- }
- .nav{
-     display: flex;
-     justify-content: space-around;
-     margin: 15rpx 0;
-     
-     image{
-         width: 128rpx;
-         height: 140rpx;
+    .searchBox{
+         // 不会脱离文档流
+          position: sticky;
+          top: 0;
+          z-index: 999;
+    }
+     swiper-item image{
+         width: 100%;
      }
- }
- .floor-title {
-   height: 60rpx;
-   width: 100%;
-   display: flex;
- }
- .floor-img-box {
-   display: flex;
-   padding-left: 10rpx;
+     .nav{
+         display: flex;
+         justify-content: space-around;
+         margin: 15rpx 0;
+         
+         image{
+             width: 128rpx;
+             height: 140rpx;
+         }
+     }
+     .floor-title {
+       height: 60rpx;
+       width: 100%;
+       display: flex;
+     }
+     .floor-img-box {
+       display: flex;
+       padding-left: 10rpx;
 
-   .right-img-box {
-     display: flex;
-     flex-wrap: wrap;
-     justify-content: space-evenly;
-   }
- }
-
+       .right-img-box {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-evenly;
+       }
+     }
 </style>

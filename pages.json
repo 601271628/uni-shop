@@ -30,6 +30,15 @@
                     "path" : "good_list/good_list",
                     "style" :   {}                                                                                 
                 }
+                ,{
+                    "path" : "search/search",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
        } 
     ],
@@ -38,16 +47,16 @@
         // 导航条
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uniShop",
-		"navigationBarBackgroundColor": "#ff0000"
+		"navigationBarBackgroundColor": "#b80000"
         
         // 
         // "enablePullDownRefresh": true,
         // 下拉刷新时的背景
-		// "backgroundColor": "#FF0000"
+		// "backgroundColor": "#b80000"
 	},
     // tabbar
     "tabBar":{
-        "selectedColor":"#FF0000",
+        "selectedColor":"#b80000",
         "list":[
             {
                 "pagePath":"pages/home/home",

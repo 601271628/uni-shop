@@ -1,35 +1,41 @@
 <template>
-	<view class="container">
-		<!-- 左边滚动 1级分类-->
-        <view class="left-scroll">
-            <scroll-view scroll-y="true" :style="{height:windowHeight+'px'}">
-               <view  
-                    :class="{'left-scroll-item':true,'active':active==index}" 
-                    v-for="(item,index) in cateList" 
-                    :key="item.cat_id" 
-                    @click="activeChanged(index)">{{item.cat_name}}</view>
-            </scroll-view>  
+    <view>
+        <!-- 使用自定义组件 -->
+        <view class="searchBox">
+            <my-search :radius="'30rpx'" :bgc="'#b80000'" @click.native="gotoSearch"></my-search>
         </view>
-		
-        <!-- 右边滚动 -->
-        <view class="rigth-scroll">
-            <scroll-view scroll-y="true" :style="{height:windowHeight+'px'}" :scroll-top="scrollTop">
-                <!-- 二级分类 -->
-                <view v-for="item in cateLevel2" :key="item.cat_id" v-if="item.children">
-                    <view class="cateLevel2-title">  /{{item.cat_name}}/  </view>
-                    
-                    <!-- 三级分类 -->
-                    <view class="cateLevel3">
-                        <view v-for="item2 in item.children" :key="item2.cat_id" @click="gotoGoodList(item2)">
-                            <image :src="item2.cat_icon.replace('dev','web')" mode="widthFix"></image>
-                            <text>{{item2.cat_name}}</text>
+        
+        <view class="container">
+            <!-- 左边滚动 1级分类-->
+            <view class="left-scroll">
+                <scroll-view scroll-y="true" :style="{height:windowHeight+'px'}">
+                   <view  
+                        :class="{'left-scroll-item':true,'active':active==index}" 
+                        v-for="(item,index) in cateList" 
+                        :key="item.cat_id" 
+                        @click="activeChanged(index)">{{item.cat_name}}</view>
+                </scroll-view>  
+            </view>
+            
+            <!-- 右边滚动 -->
+            <view class="rigth-scroll">
+                <scroll-view scroll-y="true" :style="{height:windowHeight+'px'}" :scroll-top="scrollTop">
+                    <!-- 二级分类 -->
+                    <view v-for="item in cateLevel2" :key="item.cat_id" v-if="item.children">
+                        <view class="cateLevel2-title">  /{{item.cat_name}}/  </view>
+                        
+                        <!-- 三级分类 -->
+                        <view class="cateLevel3">
+                            <view v-for="item2 in item.children" :key="item2.cat_id" @click="gotoGoodList(item2)">
+                                <image :src="item2.cat_icon.replace('dev','web')" mode="widthFix"></image>
+                                <text>{{item2.cat_name}}</text>
+                            </view>
                         </view>
                     </view>
-                </view>
-                  
-            </scroll-view>
+                </scroll-view>
+            </view>
         </view>
-	</view>
+    </view>
 </template>
 
 <script>
@@ -47,7 +53,7 @@
         onLoad() {
             // 获取系统可用高度
             let sysInfo = uni.getSystemInfoSync()
-            this.windowHeight =sysInfo.windowHeight
+            this.windowHeight =sysInfo.windowHeight - 50
             
             // scroll数据
             this.getCateList()
@@ -80,12 +86,22 @@
                 uni.navigateTo({
                     url:"/subpkg/good_list/good_list?cid=" + item2.cat_id
                 })
+            },
+            gotoSearch(){
+                uni.navigateTo({
+                   url: '/subpkg/search/search'
+                 })
             }
         }
 	}
 </script>
 
 <style lang="scss">
+    .searchBox{
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
     .container{
         display: flex;
     }
