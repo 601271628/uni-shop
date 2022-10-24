@@ -1,7 +1,7 @@
 <template>
-	<view>
-		cart
-	</view>
+    <view >
+        cart
+    </view>
 </template>
 
 <script>
