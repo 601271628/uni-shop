@@ -17,6 +17,7 @@
             "style" : {}
         }
     ],
+    // 分包
    "subPackages":[     
        {       
             "root":"subpkg",       
@@ -44,6 +45,7 @@
         // 下拉刷新时的背景
 		// "backgroundColor": "#FF0000"
 	},
+    // tabbar
     "tabBar":{
         "selectedColor":"#FF0000",
         "list":[
