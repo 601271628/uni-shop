@@ -28,13 +28,14 @@
                 }
                 ,{
                     "path" : "good_list/good_list",
-                    "style" :   {}                                                                                 
+                    "style" :   {
+                        "enablePullDownRefresh": true,
+                        "onReachBottomDistance": 50
+                    }                                                                                 
                 }
                 ,{
                     "path" : "search/search",
-                    "style" :{
-                        "enablePullDownRefresh": false
-                    }                                                                             
+                    "style" :{}                                                                             
                 }
             ]
        } 
@@ -48,10 +49,11 @@
         
         // "enablePullDownRefresh": true,
         // 下拉刷新时的背景
-		// "backgroundColor": "#b80000"
+		"backgroundColor": "#ffffff",
        "usingComponents": {
            "van-dialog": "/wxcomponents/vant/dist/dialog/index",
-           "van-button": "/wxcomponents/vant/dist/button/index"
+           "van-button": "/wxcomponents/vant/dist/button/index",
+           "van-loading": "/wxcomponents/vant/dist/loading/index"
        }
 
 	},

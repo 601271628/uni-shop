@@ -124,6 +124,9 @@
 </script>
 
 <style lang="scss">
+    swiper{
+        height: 330rpx;
+    }
     .searchBox{
          // 不会脱离文档流
           position: sticky;
@@ -132,6 +135,7 @@
     }
      swiper-item image{
          width: 100%;
+         height: 330rpx;
      }
      .nav{
          display: flex;
