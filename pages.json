@@ -44,12 +44,16 @@
         // 导航条
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uniShop",
-		"navigationBarBackgroundColor": "#b80000"
+		"navigationBarBackgroundColor": "#b80000",
         
-        // 
         // "enablePullDownRefresh": true,
         // 下拉刷新时的背景
 		// "backgroundColor": "#b80000"
+       "usingComponents": {
+           "van-dialog": "/wxcomponents/vant/dist/dialog/index",
+           "van-button": "/wxcomponents/vant/dist/button/index"
+       }
+
 	},
     // tabbar
     "tabBar":{

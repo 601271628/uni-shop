@@ -8,9 +8,9 @@
         <!-- 轮播图 -->
         <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="500">
                 <swiper-item v-for="item in swipperList" :key="item.goods_id">
-                    <navigator :url="'../../subpkg/good_detail/good_detail?good_id=' + item.goods_id"  open-type="navigate" >
+                    <view @click="gotoGoodDetail(item.goods_id)">
                         <image :src="item.image_src" mode="widthFix"></image>
-                    </navigator>
+                    </view>
                 </swiper-item>
         </swiper>
         
@@ -110,6 +110,13 @@
             gotoSearch(){
                uni.navigateTo({
                   url: '/subpkg/search/search'
+                })
+            },
+            //
+            gotoGoodDetail(good_id){
+                console.log(good_id);
+                uni.navigateTo({
+                    url:'../../subpkg/good_detail/good_detail?good_id='+good_id
                 })
             }
         }
