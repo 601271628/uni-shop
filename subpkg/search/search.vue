@@ -62,7 +62,6 @@
         },
         methods:{
             input(e){
-                console.log(e);
                 this.throlle(()=>{
                     // console.log(e.value);
                     // 保存搜索关键字
@@ -131,7 +130,7 @@
             },
             // 保存
             saveHistoryList(){
-               !this.historyList.includes(this.keyword) && this.historyList.push(this.keyword)
+               !this.historyList.includes(this.keyword) && this.historyList.unshift(this.keyword)
                // 保存本地
                uni.setStorageSync('kw', JSON.stringify(this.historyList))
             }
