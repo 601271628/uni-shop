@@ -30,12 +30,13 @@
         
         <!-- 底部商品导航区域 -->
         <view class="goods_nav">
-            <uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onclick" @buttonClick="buttonClick"/>
+            <uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onclick" @buttonClick="buttonClick($event,goods_info)"/>
         </view>
     </view>
 </template>
 
 <script>
+    import { mapState,mapGetters,mapMutations } from "vuex";
     export default {
         data() {
             return {
@@ -77,13 +78,23 @@
             // console.log("options:",options);
             //获取商品详情
             this.getGoodDetail(options.good_id)
+            // 购物车数量初始化
+            // console.log(this.goodsNum);
+            this.options[1].info = this.goodsNum
         },
         filters:{
            moneyFilter(value){
                return '￥'+Number(value).toFixed(2)
            } 
         },
+        computed:{
+            ...mapState('cart',['cart']),
+            ...mapGetters('cart',['goodsNum'])
+        },
         methods:{
+            // 加入购物车
+             ...mapMutations('cart',['addToCart']),
+             // 获取商品详细数据
             getGoodDetail(good_id){
                 uni.$http.get('/api/public/v1/goods/detail', { goods_id:good_id }).then(res=>{
                     console.log(res);
@@ -114,8 +125,23 @@
                     })
                 }
             },
-            buttonClick(e){
-                console.log(e);
+            buttonClick(e,goods_info){
+                if(e.content.text == "加入购物车"){
+                    console.log("加入购物车");
+                    // 2. 组织一个商品的信息对象
+                    const goods = {
+                         goods_id: this.goods_info.goods_id,       // 商品的Id
+                         goods_name: this.goods_info.goods_name,   // 商品的名称
+                         goods_price: this.goods_info.goods_price, // 商品的价格
+                         goods_count: 1,                           // 商品的数量
+                         goods_small_logo: this.goods_info.goods_small_logo, // 商品的图片
+                         goods_state: true                         // 商品的勾选状态
+                    }
+                    this.addToCart(goods)
+                    // 更新数目
+                    this.options[1].info = this.goodsNum
+                    console.log(this.cart);
+                }
             }
         }
     }

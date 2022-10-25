@@ -31,8 +31,11 @@ uni.$showMessage = function(title="网络错误",duration=800){
         icon:'none'
     })
 }
+
+import store from "./store/store.js"
                         
 const app = new Vue({
-	...App
+	...App,
+    store
 })
 app.$mount()
