@@ -1,6 +1,7 @@
 import Vue, { VueElement } from "vue"
 import Vuex from "vuex"
 import cart from "./cart.js"
+import user from "./user.js"
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -9,7 +10,8 @@ const store = new Vuex.Store({
     mutations:{},
     actions:{},
     modules:{
-        cart
+        cart,
+        user
     }
 })
 

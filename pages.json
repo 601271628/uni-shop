@@ -59,7 +59,6 @@
            "van-button": "/wxcomponents/vant/dist/button/index",
            "van-loading": "/wxcomponents/vant/dist/loading/index"
        }
-
 	},
     // tabbar
     "tabBar":{
