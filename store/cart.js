@@ -12,6 +12,23 @@ export default {
             return state.cart.reduce((total,item)=>{
                 return total + item.goods_count
             },0)
+        },
+        getPrice(state){
+            return state.cart.reduce((total,goods)=>{
+                return total += goods.goods_state ? goods.goods_price * goods.goods_count : 0
+            },0)
+        },
+        // 判断是不是全选
+        isCheckAll(state){
+            if(state.cart.length==0) return false
+            return !state.cart.some((item)=>{
+                // 存在没选就返回
+                return item.goods_state == false
+            })
+        },
+        // 判断购物车为空（不可点击）
+        cartIsEmpty(state){
+            return state.cart.length==0
         }
     },
     mutations:{
@@ -59,6 +76,21 @@ export default {
             state.cart = state.cart.filter(x => x.goods_id !== goods_id)
             // 持久化存储到本地
             this.commit('cart/saveToStorage')
+        },
+       
+        // 全选
+        chooseAllGood(state,isCheckAll){
+            if(isCheckAll){
+                state.cart.forEach(item=>{
+                    item.goods_state = true
+                })
+            }else{
+               state.cart.forEach(item=>{
+                   item.goods_state = false
+               })
+            }
+           // 持久化存储到本地
+           this.commit('cart/saveToStorage')
         }
     },
 }

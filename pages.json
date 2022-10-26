@@ -57,7 +57,10 @@
        "usingComponents": {
            "van-dialog": "/wxcomponents/vant/dist/dialog/index",
            "van-button": "/wxcomponents/vant/dist/button/index",
-           "van-loading": "/wxcomponents/vant/dist/loading/index"
+           "van-loading": "/wxcomponents/vant/dist/loading/index",
+           "van-submit-bar": "/wxcomponents/vant/dist/submit-bar/index",
+           "van-tag":"/wxcomponents/vant/dist/tag/index",
+           "van-radio": "/wxcomponents/vant/dist/radio/index"
        }
 	},
     // tabbar
