@@ -128,7 +128,7 @@
 		flex-direction: row;
 		height: 35px;
 		line-height: 35px;
-		width: 120px;
+		width: 90px;
 	}
 
 	.uni-numbox__value {

@@ -10,7 +10,11 @@
         }
         ,{
             "path" : "pages/cart/cart",
-            "style" : {}
+            "style" : {
+                "app-plus":{
+                    "bounce":"none"
+                }
+            }
         }
         ,{
             "path" : "pages/my/my",

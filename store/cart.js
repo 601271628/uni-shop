@@ -26,8 +26,8 @@ export default {
           const findResult = state.cart.find((x) => x.goods_id === goods.goods_id)
     
           if (!findResult) {
-            // 如果购物车中没有这件商品，则直接 push
-            state.cart.push(goods);
+            // 如果购物车中没有这件商品，则直接 unshift
+            state.cart.unshift(goods);
           } else {
             // 如果购物车中有这件商品，则只更新数量即可
             findResult.goods_count++
@@ -35,5 +35,30 @@ export default {
           // 存到本地
           this.commit("cart/saveToStorage")
         },
+        //选中该商品
+        checkedGood(state,goods){
+            // 找出指定商品id并修改其state
+            let findResult = state.cart.find((x) => x.goods_id === goods.goods_id)
+            // 修改state
+            findResult.goods_state = goods.goods_state
+            // 存到本地
+            this.commit("cart/saveToStorage")
+        },
+        // 修改商品数目
+        goodNumChange(state,goods){
+            // 找出指定商品id并修改其state
+            let findResult = state.cart.find((x) => x.goods_id === goods.goods_id)
+            // 修改state
+            findResult.goods_count = goods.goods_count
+            // 存到本地
+            this.commit("cart/saveToStorage")
+        },
+        // 删除商品
+        deleteGood(state,goods_id){
+            // 调用数组的 filter 方法进行过滤
+            state.cart = state.cart.filter(x => x.goods_id !== goods_id)
+            // 持久化存储到本地
+            this.commit('cart/saveToStorage')
+        }
     },
 }
