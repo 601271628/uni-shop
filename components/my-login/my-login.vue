@@ -45,10 +45,19 @@
                              rawData: userInfo.rawData,
                              signature: userInfo.signature
                         }
+                        // 小程序内部的方法获取openid（token）
+                        // wx.request({
+                        //     url: 'https://api.weixin.qq.com/sns/jscode2session?appid=xxx&secret=xxx&js_code=' + loginRes.code + '&grant_type=authorization_code',
+                        //     success: res => {
+                        //         console.log(res);
+                        //         console.log("用户的openid:" + res.data.openid); //ozYDE5QVLkrJlYtzMROXlNJVg14Q
+                        //         app.globalData.openid= res.data.openid;
+                        //     }
+                        // })
                         // 根据query生成token（这个接口坏了）
                        uni.$http.post('/api/public/v1/users/wxlogin', query).then(tokenRes=>{
                            // console.log(tokenRes);
-                           this.updateToken("接口坏了 自定义token")
+                           this.updateToken("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIzLCJpYXQiOjE1NjQ3MzAwNzksImV4cCI6MTAwMTU2NDczMDA3OH0.YPt-XeLnjV-_1ITaXGY2FhxmCe4NvXuRnRB8OMCfnPo")
                            uni.$showMessage('登录成功！')
                        })
                     },

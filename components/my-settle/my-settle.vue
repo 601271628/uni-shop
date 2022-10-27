@@ -32,7 +32,6 @@
                 this.$emit("chooseAll",!this.isCheck)  
             },
             onClickButton(){
-                console.log("settle");
                  this.$emit("settle")  
             }
         }

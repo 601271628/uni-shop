@@ -160,6 +160,58 @@
                 } 
                 // 3. 再判断用户是否选择了收货地址
                 if (!this.addStr) return uni.$showMessage('请选择收货地址！')
+                
+                 // 4. 实现微信支付功能
+                this.payOrder()
+           },
+           async payOrder(){
+                console.log(this.getPrice);
+                // 1.1 组织订单的信息对象
+                const orderInfo = {
+                   order_price: 0.01,
+                   consignee_addr: this.addStr,
+                   goods: this.cart.filter(x => x.goods_state).map(x => ({
+                       goods_id: x.goods_id,
+                       goods_number: x.goods_count,
+                       goods_price: x.goods_price 
+                    }))
+                }
+                // 1 创建订单
+                const { data: res } = await uni.$http.post('/api/public/v1/my/orders/create', orderInfo);
+                console.log(res);  //这里使用评论区的token （自己写的）
+                if (res.meta.status !== 200) return uni.$showMessage('创建订单失败！')
+                
+                // 2 得到服务器响应的“订单编号”
+                // const orderNumber = 'GD20180507000000000110'
+                const orderNumber = res.message.order_number
+                const { data: res2 } = await uni.$http.post('/api/public/v1/my/orders/req_unifiedorder', { order_number: orderNumber })
+                console.log(123,res2);  // msg: "无效token" 401// 2.2 预付订单生成失败
+                // if (res2.meta.status !== 200) return uni.$showError('预付订单生成失败！')
+                // 2.3 得到订单支付相关的必要参数
+                // const payInfo = res2.message.pay
+                
+                // 支付 （pay对象）
+                let pay =  {
+                      "timeStamp": "1525681145",
+                      "nonceStr": "BkPggorBXZwPGXe3",
+                      "package": "prepay_id=wx071619042918087bb4c1d3d72999385683",
+                      "signType": "MD5",
+                      "paySign": "D1642DEEF1663C8012EDEB9297E1D516"
+                }
+                // 3.1 调用 uni.requestPayment() 发起微信支付
+                const [err, succ] = await uni.requestPayment(pay)
+                // console.log("支付",[err, succ]);
+                // 3.2 未完成支付
+                if (err) return uni.$showMessage('订单未支付！')
+                // 3.3 完成了支付，进一步查询支付的结果
+                const { data: res3 } = await uni.$http.post('/api/public/v1/my/orders/chkOrder', { order_number: orderNumber })
+                // 3.4 检测到订单未支付
+                if (res3.meta.status !== 200) return uni.$showMessage('订单未支付！')
+                // 3.5 检测到订单支付完成
+                uni.showToast({
+                  title: '支付完成！',
+                  icon: 'success'
+                })
            }
         }
 	}
