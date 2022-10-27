@@ -44,6 +44,7 @@
          mixins: [badgeMix],
          computed:{
              ...mapGetters('user',['addStr']),
+             ...mapState('user',['token']),
              ...mapState('cart',['cart']),
              ...mapGetters('cart',['goodsNum','getPrice','isCheckAll','cartIsEmpty'])
          },
@@ -126,14 +127,39 @@
                this.chooseAllGood(isCheck)
                // 价格
                this.price = this.getPrice 
-             },
+            },
+            showTip(n){
+                // 调用 uni.showToast() 方法，展示提示消息
+                uni.showToast({
+                    title: `请登录后再结算！${n}秒后自动跳转到登录页...`,
+                    icon: 'none',
+                    // 为页面添加透明遮罩，防止点击穿透
+                    mask: true,
+                    duration: 1500
+                })
+            },
            settle(){
-                // 如果没商品 则提示
+                // 1.如果没商品 则提示
                 if(this.getPrice == 0) return uni.$showMessage('请选择要结算的商品！')
-                // 2. 再判断用户是否选择了收货地址
+                // 2. 最后判断用户是否登录了
+                if (!this.token){
+                    let n = 3
+                    this.showTip(n)
+                    let timer = setInterval(()=>{
+                        n--
+                        if(n==0) {
+                            clearInterval(timer)
+                            return uni.switchTab({
+                                url:"/pages/my/my"
+                            })
+                        }
+                        this.showTip(n)
+                    },1000)
+                    // 3秒后跳转到登录页面
+                    return 
+                } 
+                // 3. 再判断用户是否选择了收货地址
                 if (!this.addStr) return uni.$showMessage('请选择收货地址！')
-                // 3. 最后判断用户是否登录了
-                // if (!this.token) return uni.$showMsg('请先登录！')
            }
         }
 	}
