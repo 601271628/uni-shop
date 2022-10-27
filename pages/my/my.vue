@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="my-container">
         <!-- 登录 -->
         <my-login v-if="!token"></my-login>
         <!-- 登陆了 显示信息 -->
@@ -19,10 +19,17 @@
 		},
         computed:{
             ...mapState('user',['token'])
+        },
+        onShow() {
+            console.log(this.token);
         }
 	}
 </script>
 
 <style lang="scss">
-
+    page,
+    .my-container {
+      height: 100%;
+    }
+    
 </style>

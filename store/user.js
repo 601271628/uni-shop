@@ -2,7 +2,7 @@ export default{
     namespaced :true,
     state:{
         address:JSON.parse(uni.getStorageSync("address") || '{}'),
-        token:'',
+        token:uni.getStorageSync('token') || '',
         // 用户的基本信息
         userinfo: JSON.parse(uni.getStorageSync('userinfo') || '{}')
     },
@@ -36,7 +36,7 @@ export default{
         // 将 token 字符串持久化存储到本地
         saveTokenToStorage(state) {
             uni.setStorageSync('token', state.token)
-        }
+        },
     },
     getters:{
         addStr(state,getters){
