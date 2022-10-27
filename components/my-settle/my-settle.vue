@@ -5,9 +5,7 @@
          button-text="结算"
          @submit="onClickButton"
         >
-        <label class="radio">
             <radio :checked="isCheck" color="#1989fa" @click="clickChooseAll" :disabled="disabled"/><text>全选</text>
-        </label>
        </van-submit-bar>
     </view>
 </template>

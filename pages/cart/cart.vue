@@ -43,6 +43,7 @@
         // 混入设置购物车数字的mixins
          mixins: [badgeMix],
          computed:{
+             ...mapGetters('user',['addStr']),
              ...mapState('cart',['cart']),
              ...mapGetters('cart',['goodsNum','getPrice','isCheckAll','cartIsEmpty'])
          },
@@ -127,7 +128,12 @@
                this.price = this.getPrice 
              },
            settle(){
-               console.log("支付",this.getPrice);
+                // 如果没商品 则提示
+                if(this.getPrice == 0) return uni.$showMessage('请选择要结算的商品！')
+                // 2. 再判断用户是否选择了收货地址
+                if (!this.addStr) return uni.$showMessage('请选择收货地址！')
+                // 3. 最后判断用户是否登录了
+                // if (!this.token) return uni.$showMsg('请先登录！')
            }
         }
 	}
